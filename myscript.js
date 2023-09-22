@@ -217,9 +217,6 @@
         counter++;
       });
       document.getElementById("resform").style.display = "none";
-      selectedSeats.forEach((seat) => {
-        document.getElementById(seat).removeEventListener();
-      });
       selectedSeats = [];
     };
     handleConfirm();

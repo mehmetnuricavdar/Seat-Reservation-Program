@@ -115,29 +115,33 @@
   // selecting seats
   (function () {
     ("use strict");
-
+    // created empty array to put selected seats here
     let selectedSeats = [];
-    const seats = document.querySelectorAll(".a");
 
+    // adding event listeners every seats
+
+    const seats = document.querySelectorAll(".a");
     seats.forEach((seat) => {
       seat.addEventListener("click", (event) => {
         seatSelectionFunction(seat);
       });
     });
 
+    // selection function
     const seatSelectionFunction = (seat) => {
       const thisSeat = seat.id;
       const index = selectedSeats.indexOf(thisSeat);
-
-      if (index === -1) {
-        selectedSeats.push(thisSeat);
-        seat.classList.add("s");
-      } else {
-        selectedSeats.splice(index, 1);
-        seat.classList.remove("s");
+      if (!seat.classList.contains("r")) {
+        if (index === -1) {
+          selectedSeats.push(thisSeat);
+          seat.classList.add("s");
+        } else {
+          selectedSeats.splice(index, 1);
+          seat.classList.remove("s");
+        }
       }
-      // const chosenSeat = selectedSeats.slice(0, -1).join(", ").toUpperCase() +
-      // " and " + selectedSeats.slice(-1).toString().toUpperCase();
+
+      // CREATING MESSAGE ABOUT SELECTED SEATS
       const chosenSeat = selectedSeats
         .toString()
         .toUpperCase()
@@ -152,7 +156,8 @@
       }
       handleConfirm();
     };
-
+    
+    // hiding or showing form
     document.getElementById("reserve").addEventListener("click", (event) => {
       event.preventDefault();
       const element = document.getElementById("resform");
@@ -184,5 +189,41 @@
       }
     };
     handleConfirm();
+
+    // sending form
+    const form = document.getElementById("confirmres");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      processReservation();
+    });
+    const processReservation = () => {
+      const hardCodedRecords = Object.keys(reservedSeats).length;
+      const fname = document.getElementById("fname").value;
+      const lname = document.getElementById("lname").value;
+      let counter = 1;
+      let nextRecord = "";
+
+      selectedSeats.forEach((seat) => {
+        document.getElementById(seat).className = "r";
+        document.getElementById(seat).innerHTML = "R";
+
+        nextRecord = `record${hardCodedRecords + counter}`;
+        reservedSeats[nextRecord] = {
+          seat: seat,
+          owner: {
+            fname: fname,
+            lname: lname,
+          },
+        };
+        counter++;
+      });
+      document.getElementById("resform").style.display = "none";
+      selectedSeats.forEach((seat) => {
+        document.getElementById(seat).removeEventListener();
+      });
+      selectedSeats = [];
+
+      console.log(selectedSeats);
+    };
   })();
 })();

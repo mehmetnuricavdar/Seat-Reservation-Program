@@ -126,18 +126,17 @@
     });
 
     const seatSelectionFunction = (seat) => {
-      thisSeat = seat.id;
+      const thisSeat = seat.id;
+      const index = selectedSeats.indexOf(thisSeat);
 
-      if (!selectedSeats.includes(thisSeat)) {
+      if (index === -1) {
         selectedSeats.push(thisSeat);
         seat.classList.add("s");
-      } else {
-        const index = selectedSeats.indexOf(thisSeat);
-        if (index !== -1) {
-          selectedSeats.splice(index, 1);
-          seat.classList.remove("s");
-        }
+      } else { 
+        selectedSeats.splice(index, 1);
+        seat.classList.remove("s");
       }
+      console.log(selectedSeats)
     };
   })();
 })();

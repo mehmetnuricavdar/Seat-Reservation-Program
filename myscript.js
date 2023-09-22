@@ -101,6 +101,7 @@
 
   (function () {
     "use strict";
+
     for (const key in reservedSeats) {
       if (reservedSeats.hasOwnProperty(key)) {
         const seats = reservedSeats[key].seat;
@@ -109,5 +110,34 @@
         document.getElementById(seats).innerHTML = "R";
       }
     }
+  })();
+
+  // selecting seats
+  (function () {
+    ("use strict");
+
+    let selectedSeats = [];
+    const seats = document.querySelectorAll(".a");
+
+    seats.forEach((seat) => {
+      seat.addEventListener("click", (event) => {
+        seatSelectionFunction(seat);
+      });
+    });
+
+    const seatSelectionFunction = (seat) => {
+      thisSeat = seat.id;
+
+      if (!selectedSeats.includes(thisSeat)) {
+        selectedSeats.push(thisSeat);
+        seat.classList.add("s");
+      } else {
+        const index = selectedSeats.indexOf(thisSeat);
+        if (index !== -1) {
+          selectedSeats.splice(index, 1);
+          seat.classList.remove("s");
+        }
+      }
+    };
   })();
 })();

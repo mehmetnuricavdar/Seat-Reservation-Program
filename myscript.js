@@ -136,11 +136,23 @@
         selectedSeats.splice(index, 1);
         seat.classList.remove("s");
       }
-      console.log(selectedSeats);
-    };
-  })();
+      // const chosenSeat = selectedSeats.slice(0, -1).join(", ").toUpperCase() +
+      // " and " + selectedSeats.slice(-1).toString().toUpperCase();
+      const chosenSeat = selectedSeats
+        .toString()
+        .toUpperCase()
+        .replace(/,/g, ", ")
+        .replace(/,(?=[^,]*$)/, " and");
 
-  (function () {
+      const seatElement = document.getElementById("selectedseats");
+      if (selectedSeats.length === 1) {
+        seatElement.innerHTML = `You have selected seat: ${chosenSeat} `;
+      } else {
+        seatElement.innerHTML = `You have selected seats: ${chosenSeat} `;
+      }
+      handleConfirm();
+    };
+
     document.getElementById("reserve").addEventListener("click", (event) => {
       event.preventDefault();
       const element = document.getElementById("resform");
@@ -155,5 +167,22 @@
       event.preventDefault();
       document.getElementById("resform").style.display = "none";
     });
+
+    const handleConfirm = () => {
+      if (selectedSeats.length > 0) {
+        document.getElementById("confirmres").style.display = "block";
+      } else {
+        document.getElementById("confirmres").style.display = "none";
+        document.getElementById(
+          "selectedseats"
+        ).innerHTML = `You need to select some seats to reserve.<br><a href="#" id="error">Close</a> this dialog box and pick at least one seat.`;
+        document.getElementById("error").addEventListener("click", (event) => {
+          event.preventDefault();
+          const element = (document.getElementById("resform").style.display =
+            "none");
+        });
+      }
+    };
+    handleConfirm();
   })();
 })();

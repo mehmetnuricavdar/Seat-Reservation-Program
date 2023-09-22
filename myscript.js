@@ -156,7 +156,7 @@
       }
       handleConfirm();
     };
-    
+
     // hiding or showing form
     document.getElementById("reserve").addEventListener("click", (event) => {
       event.preventDefault();
@@ -188,7 +188,6 @@
         });
       }
     };
-    handleConfirm();
 
     // sending form
     const form = document.getElementById("confirmres");
@@ -222,8 +221,7 @@
         document.getElementById(seat).removeEventListener();
       });
       selectedSeats = [];
-
-      console.log(selectedSeats);
     };
+    handleConfirm();
   })();
 })();

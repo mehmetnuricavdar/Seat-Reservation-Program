@@ -99,12 +99,15 @@
 
   // getting reserved seats from data
 
-  for (const key in reservedSeats) {
-    if (reservedSeats.hasOwnProperty(key)) {
-      const seats = reservedSeats[key].seat;
+  (function () {
+    "use strict";
+    for (const key in reservedSeats) {
+      if (reservedSeats.hasOwnProperty(key)) {
+        const seats = reservedSeats[key].seat;
 
-      document.getElementById(seats).className = "r";
-      document.getElementById(seats).innerHTML = "R";
+        document.getElementById(seats).className = "r";
+        document.getElementById(seats).innerHTML = "R";
+      }
     }
-  }
+  })();
 })();

@@ -132,11 +132,28 @@
       if (index === -1) {
         selectedSeats.push(thisSeat);
         seat.classList.add("s");
-      } else { 
+      } else {
         selectedSeats.splice(index, 1);
         seat.classList.remove("s");
       }
-      console.log(selectedSeats)
+      console.log(selectedSeats);
     };
+  })();
+
+  (function () {
+    document.getElementById("reserve").addEventListener("click", (event) => {
+      event.preventDefault();
+      const element = document.getElementById("resform");
+      if (element.style.display === "block") {
+        element.style.display = "none";
+      } else {
+        element.style.display = "block";
+      }
+    });
+
+    document.getElementById("cancel").addEventListener("click", (event) => {
+      event.preventDefault();
+      document.getElementById("resform").style.display = "none";
+    });
   })();
 })();
